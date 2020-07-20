@@ -62,26 +62,26 @@ export function validatAlphabets(str) {
     return reg.test(str)
 }
 /*验证pad还是pc*/
-export const vaildatePc = function() {
-        const userAgentInfo = navigator.userAgent;
-        const Agents = ["Android", "iPhone",
-            "SymbianOS", "Windows Phone",
-            "iPad", "iPod"
-        ];
-        let flag = true;
-        for (var v = 0; v < Agents.length; v++) {
-            if (userAgentInfo.indexOf(Agents[v]) > 0) {
-                flag = false;
-                break;
-            }
+export const vaildatePc = function () {
+    const userAgentInfo = navigator.userAgent;
+    const Agents = ["Android", "iPhone",
+        "SymbianOS", "Windows Phone",
+        "iPad", "iPod"
+    ];
+    let flag = true;
+    for (var v = 0; v < Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) {
+            flag = false;
+            break;
         }
-        return flag;
     }
-    /**
-     * validate email
-     * @param email
-     * @returns {boolean}
-     */
+    return flag;
+}
+/**
+ * validate email
+ * @param email
+ * @returns {boolean}
+ */
 export function validateEmail(email) {
     const re = /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     return re.test(email)
@@ -179,9 +179,9 @@ export function isvalidatemobile(phone) {
     let result = true;
     let msg = '';
     var isPhone = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
-    //增加134 减少|1349[0-9]{7}，增加181,增加145，增加17[678]  
+    //增加134 减少|1349[0-9]{7}，增加181,增加145，增加17[678]
     if (!validatenull(phone)) {
-        if (phone.length == 11) {
+        if (phone.toString().length == 11) {
             if (!isPhone.test(phone)) {
                 msg = '手机号码格式不正确';
             } else {
@@ -254,8 +254,66 @@ export function validatenull(val) {
 /**
  * 校验密码：必须包含字母和数字的组合，不能使用特殊字符，长度在 6-20 之间
  */
-export function validatePassword(val) {
-    let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/g;
-    if (!reg.test(val)) return false;
+export function isPasswd(val) {
+    let regName = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/g;
+    if (!regName.test(val)) return false;
+    return true;
+}
+/**
+ * 验证是否是正整数
+ */
+export function isNum(val) {
+    let regName =  /^\+?[1-9]\d*$/;
+    if (val==="0") {
+    return true;
+    }else if(!regName.test(val)){
+        return false;
+    }else{
+    return true;
+    }
+}
+
+/**
+ * 检验账户名
+ * @param val
+ */
+export function isAccount(val){
+    let patrn=/^[a-zA-Z]{1}([a-zA-Z0-9]|[_]){4,15}$/;
+    if (!patrn.exec(val)) return false
+    return true
+}
+
+/**
+ * 检验ip地址
+ * @param ip
+ * @returns {boolean}
+ */
+export function checkIp(ip) {
+    var exp=/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/;
+    var reg = ip.match(exp);
+    if(reg==null){
+        return false;
+    } else {
+        return true;
+    }
+}
+/**
+ * 校验IPv4   prefix格式：比如： 192.168.1.0/24
+ */
+export function checkIPv4(ip) {
+    var exp=/^(?=(\b|\D))(((\d{1,2})|(1\d{1,2})|(2[0-4]\d)|(25[0-5]))\.){3}((\d{1,2})|(1\d{1,2})|(2[0-4]\d)|(25[0-5]))(?=(\b|\D))\/([1-2][0-9]|3[0-2]|[1-9])$/;
+    var reg = ip.match(exp);
+    if(reg==null){
+        return false;
+    } else {
+        return true;
+    }
+}
+/**
+ * 校验密码：（强口令）必须包含字母和数字的组合，不能使用特殊字符，长度在 6-20 之间
+ */
+export function passwordValidate(val) {
+    let regName = /^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_!@#$%^&*`~()+=.?]+$)(?![a-z0-9]+$)(?![a-z\\W_!@#$%^&*`~()+=.?]+$)(?![0-9\\W_!@#$%^&*`~()+=.?]+$)[a-zA-Z0-9\\W_!@#$%^&*`~()+=.?]{8,20}$/g;
+    if (!regName.test(val)) return false;
     return true;
 }

@@ -5,7 +5,8 @@
  * keepAlive是否缓冲页面
  */
 import VueRouter from 'vue-router';
-import mainRouter from './main/'
+import pageRouter from './page/'
+import viewsRouter from './views/'
 import Vue from 'vue';
 // import Store from '../store/';
 
@@ -25,7 +26,7 @@ let Router = new VueRouter({
             }
         }
     },
-    routes: [...mainRouter]
+    routes: [...pageRouter, ...viewsRouter]
 });
 // Router.addRoutes([...mainRouter]);
 export default Router;
