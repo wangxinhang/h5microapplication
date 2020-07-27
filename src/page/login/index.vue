@@ -6,16 +6,19 @@
 
 <script>
 // import { mapGetters } from "vuex";
-
 export default {
   data() {
     return {
       active: 0
     };
   },
+  created () {
+  },
   methods: {
     login() {
-      this.$store.dispatch("LoginByUsername");
+      this.$store.dispatch("LoginByUsername").then(()=>{
+        this.$router.push({path:"/index"})
+      });
     }
   }
 };

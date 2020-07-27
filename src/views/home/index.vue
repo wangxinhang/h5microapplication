@@ -10,3 +10,16 @@
     </van-cell-group>
   </router-layout>
 </template>
+<script>
+import { getList } from "@/api/system/user";
+
+export default {
+  data() {
+    return {
+    }
+  },
+  created () {
+    getList();
+  },
+};
+</script>

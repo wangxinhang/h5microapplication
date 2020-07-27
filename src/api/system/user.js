@@ -11,7 +11,7 @@ export const resetPassword = (userIds) => {
 }
 export const getList = (current, size, params) => {
   return request({
-    url: '/api/blade-user/userList',
+    url: '/api/users',
     method: 'get',
     params: {
       ...params,
